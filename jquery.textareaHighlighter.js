@@ -85,6 +85,7 @@
                     .insertBefore(data._textareael);
                 data._textareael.data(PLUGINDATAKEY, data);
                 data._textareael.keyup();
+                return data._textareael[0];
             },
             destroy: function() {
                 $(window).undind(EVENTNAMESPACE);
@@ -122,6 +123,10 @@
                 }
             },
             highlight: function (start, end, color) {
+                if ( (end-start+1)<=0 ) {
+                    methods._hidehelper.apply(this);
+                    return;
+                }
                 var srctext = $this.val();
                 var p = [];
                 p[0] = srctext.substring(0, start);
@@ -130,6 +135,24 @@
                 data._helperel.html(p[0]+'<span style="background: '+color+'">'+p[1]+'</span>'+p[2]);
                 methods._showhelper.apply(this);
                 data._textareael.scroll();
+                $this.blur();
+            },
+            highlight2areas: function (starto, endo, coloro, starti, endi, colori) { // TODO - remove copypasted code -_-
+                if ( (endo-starto+1)<=0 || (endi-starti+1)<=0 ) {
+                    methods._hidehelper.apply(this);
+                    return;
+                }
+                var srctext = $this.val();
+                var p = [];
+                p[0] = srctext.substring(0, starto);
+                p[1] = srctext.substring(starto, starti);
+                p[2] = srctext.substring(starti, endi+1);
+                p[3] = srctext.substring(endi+1, endo+1);
+                p[4] = srctext.substring(endo+1, srctext.length);
+                data._helperel.html(p[0]+'<span style="background: '+coloro+'">'+p[1]+'<span style="background: '+colori+'">'+p[2]+'</span>'+p[3]+'</span>'+p[4]);
+                methods._showhelper.apply(this);
+                data._textareael.scroll();
+                $this.blur();
             }
         };
 
@@ -141,9 +164,11 @@
                 methods[ method ].apply( $(this), Array.prototype.slice.call( argsclosure, 1 ));
             });
         } else if ( typeof method === 'object' || ! method ) {
-            return this.each(function() {
-                methods.init.apply( $(this), arguments );
+            var newjq = [];
+            this.each(function() {
+                newjq.push(methods.init.apply( $(this), arguments ));
             });
+            return $(newjq);
         } else {
             $.error( 'No method with name ' +  method + ' for jQuery.textareaHighlighter' );
         }
