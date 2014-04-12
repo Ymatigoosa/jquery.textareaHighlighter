@@ -1,9 +1,11 @@
 /**
- * jquery-textareaHighlighter
- * A jQuery plugin for highlight text in textareas with custom colors.
- * See the [wiki](??) for usage and examples.
+ * jquery.textareaHighlighter
+ * This plugin allow you to select text in textarea with custom color and keep this selection until text is changed.
+ * See the readme at [git](https://github.com/pahomovda/jquery.textareaHighlighter).
  *
- * (c) 2014 Pahomov Dmitry <topt.iiiii@gmail.com> - danielimhoff.com
+ * Copyright (c) 2014 Pahomov Dmitry
+ * Released under the MIT license
+ * https://github.com/pahomovda/jquery.textareaHighlighter/blob/master/LICENSE
  */
 
 /*var get_selection = function (id) {
@@ -38,7 +40,7 @@
                 _fontsize: settings.fontsize,
                 _linesize: settings.fontsize+2,
                 _ishelperhidden: false
-            }
+            };
             var content = this.val() || '';
             var id = this.attr('id') || PLUGINNAME+Math.random().toString(36).substr(2, 5);
             var bgcolor = this.css('backgroundColor') || 'yellow';
