@@ -133,6 +133,9 @@
             }
         };
 
+        /*
+         * Code starts here! *o*
+         */
         if ( methods[method] ) {
             return this.each(function() {
                 methods[ method ].apply( $(this), Array.prototype.slice.call( argsclosure, 1 ));
